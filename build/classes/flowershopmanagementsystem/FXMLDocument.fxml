@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flowershopmanagementsystem.FXMLDocumentController">
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
@@ -34,8 +33,8 @@
                   </Label>
                   <TextField fx:id="username" layoutX="53.0" layoutY="190.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
                   <PasswordField fx:id="password" layoutX="52.0" layoutY="245.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <Button fx:id="loginBtn" layoutX="53.0" layoutY="315.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" />
-                  <Button fx:id="close" layoutX="264.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                  <Button fx:id="loginBtn" layoutX="53.0" layoutY="315.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" prefHeight="40.0" prefWidth="220.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" />
+                  <Button fx:id="close" layoutX="264.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="60.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="CLOSE" size="1.2em" />
                      </graphic>
