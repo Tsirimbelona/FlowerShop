@@ -100,7 +100,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="223.0" layoutY="168.0" prefHeight="563.0" prefWidth="885.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="223.0" layoutY="168.0" prefHeight="563.0" prefWidth="885.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="156.0" prefWidth="967.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -173,7 +173,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="availableFlowers_form" layoutX="153.0" layoutY="82.0" prefHeight="563.0" prefWidth="885.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="availableFlowers_form" layoutX="153.0" layoutY="82.0" prefHeight="563.0" prefWidth="885.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="20.0" layoutY="8.0" prefHeight="647.0" prefWidth="236.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -188,7 +188,7 @@
                                        </styleClass>
                                        <children>
                                           <ImageView fx:id="availableFlowers_imageView" fitHeight="139.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button fx:id="availableFlowers_impotBtn" layoutY="107.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="116.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Import" />
+                                          <Button fx:id="availableFlowers_impotBtn" layoutY="107.0" mnemonicParsing="false" onAction="#availableFlowersInsertImage" prefHeight="35.0" prefWidth="116.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Import" />
                                        </children>
                                     </AnchorPane>
                                     <Label layoutX="16.0" layoutY="187.0" text="Flower ID:">
@@ -208,10 +208,10 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="availableFlowers_status" layoutX="17.0" layoutY="376.0" prefHeight="34.0" prefWidth="203.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Button fx:id="availableFlowers_addBtn" layoutX="15.0" layoutY="535.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
+                                    <ComboBox fx:id="availableFlowers_status" layoutX="17.0" layoutY="376.0" onAction="#availableFlowersStatus" prefHeight="34.0" prefWidth="203.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="availableFlowers_addBtn" layoutX="15.0" layoutY="535.0" mnemonicParsing="false" onAction="#availableFlowersAdd" prefHeight="39.0" prefWidth="88.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
                                     <Button fx:id="availableFlowers_updateBtn" layoutX="133.0" layoutY="535.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
-                                    <Button fx:id="availableFlowers_clearBtn" layoutX="16.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
+                                    <Button fx:id="availableFlowers_clearBtn" layoutX="16.0" layoutY="582.0" mnemonicParsing="false" onAction="#availableFlowersClear" prefHeight="39.0" prefWidth="88.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
                                     <Button fx:id="availableFlowers_deleteBtn" layoutX="134.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
                                     <Label layoutX="17.0" layoutY="432.0" text="Price:">
                                        <font>
@@ -229,7 +229,7 @@
                                  <children>
                                     <TextField fx:id="availableFlowers_search" layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="321.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
                                     <FontAwesomeIconView glyphName="SEARCH" layoutX="14.0" layoutY="36.0" size="1.5em" />
-                                    <TableView fx:id="availableFlowers_stasbleView" layoutX="13.0" layoutY="55.0" prefHeight="580.0" prefWidth="680.0">
+                                    <TableView fx:id="availableFlowers_tableView" layoutX="13.0" layoutY="55.0" onMouseClicked="#availableFlowersSelect" prefHeight="580.0" prefWidth="680.0">
                                       <columns>
                                         <TableColumn fx:id="availableFlowers_col_flowerID" prefWidth="135.0" text="Flower ID" />
                                         <TableColumn fx:id="availableFlowers_col_flowerName" prefWidth="260.0" text="Flower Name" />

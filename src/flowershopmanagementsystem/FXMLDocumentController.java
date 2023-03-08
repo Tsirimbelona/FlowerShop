@@ -52,7 +52,7 @@ public class FXMLDocumentController implements Initializable {
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
-    
+
     private double x = 0;
     private double y = 0;
 
@@ -77,13 +77,15 @@ public class FXMLDocumentController implements Initializable {
                 alert.showAndWait();
             } else {
                 if (result.next()) {
-                    //IF CORRECT USERNAME AND PASSWORD THEN PROCEDE TO DASHBOARD
 
+                    //IF CORRECT USERNAME AND PASSWORD THEN PROCEDE TO DASHBOARD
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Login!");
                     alert.showAndWait();
+                    
+                    getData.username = username.getText();
 
                     loginBtn.getScene().getWindow().hide(); // MIALA NY FENETRE LOGIN RAHA MARINA CODE
 
@@ -91,20 +93,19 @@ public class FXMLDocumentController implements Initializable {
                     Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
-                    
+
                     // LAY AHAFAHANA MAMOHETSIKA NY FENETRE
                     root.setOnMousePressed((MouseEvent event) -> {
-                       x = event.getSceneX();
-                       y = event.getSceneY();
+                        x = event.getSceneX();
+                        y = event.getSceneY();
                     });
-                    
+
                     root.setOnMouseDragged((MouseEvent event) -> {
-                       stage.setX(event.getScreenX() - x);
-                       stage.setY(event.getScreenY() - y);
+                        stage.setX(event.getScreenX() - x);
+                        stage.setY(event.getScreenY() - y);
                     });
-                    
+
                     stage.initStyle(StageStyle.TRANSPARENT);// MANALA ILAY BARRE AMBONY
-                    
 
                     stage.setScene(scene);
                     stage.show();
