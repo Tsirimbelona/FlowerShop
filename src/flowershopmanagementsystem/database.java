@@ -13,16 +13,18 @@ import java.sql.DriverManager;
  * @author Jean_Nico .T
  */
 public class database {
-    
-    public static Connection coonectDb(){
-        
-        try{
-            
+
+    public static Connection connectDb() {
+
+        try {
+
             Class.forName("com.mysql.jdbc.Driver");
-            
+
             Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/flower", "root", ""); //root is the default username 
             return connect;
-    }catch (Exception e){e.printStackTrace();}
-    return null;
-  }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
