@@ -210,9 +210,9 @@
                                     </Label>
                                     <ComboBox fx:id="availableFlowers_status" layoutX="17.0" layoutY="376.0" onAction="#availableFlowersStatus" prefHeight="34.0" prefWidth="203.0" promptText="Choose..." styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Button fx:id="availableFlowers_addBtn" layoutX="15.0" layoutY="535.0" mnemonicParsing="false" onAction="#availableFlowersAdd" prefHeight="39.0" prefWidth="88.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
-                                    <Button fx:id="availableFlowers_updateBtn" layoutX="133.0" layoutY="535.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
+                                    <Button fx:id="availableFlowers_updateBtn" layoutX="133.0" layoutY="535.0" mnemonicParsing="false" onAction="#availableFlowersUpdate" prefHeight="39.0" prefWidth="88.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
                                     <Button fx:id="availableFlowers_clearBtn" layoutX="16.0" layoutY="582.0" mnemonicParsing="false" onAction="#availableFlowersClear" prefHeight="39.0" prefWidth="88.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
-                                    <Button fx:id="availableFlowers_deleteBtn" layoutX="134.0" layoutY="582.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
+                                    <Button fx:id="availableFlowers_deleteBtn" layoutX="134.0" layoutY="582.0" mnemonicParsing="false" onAction="#availableFlowersDelete" prefHeight="39.0" prefWidth="88.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
                                     <Label layoutX="17.0" layoutY="432.0" text="Price:">
                                        <font>
                                           <Font size="14.0" />
@@ -227,7 +227,7 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TextField fx:id="availableFlowers_search" layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="321.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="availableFlowers_search" layoutX="11.0" layoutY="14.0" onKeyTyped="#availableFlowersSearch" prefHeight="30.0" prefWidth="321.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
                                     <FontAwesomeIconView glyphName="SEARCH" layoutX="14.0" layoutY="36.0" size="1.5em" />
                                     <TableView fx:id="availableFlowers_tableView" layoutX="13.0" layoutY="55.0" onMouseClicked="#availableFlowersSelect" prefHeight="580.0" prefWidth="680.0">
                                       <columns>

@@ -18,6 +18,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -257,8 +259,126 @@ public class dashboardController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    
+
+    public void availableFlowersUpdate() {
+
+        String uri = getData.path;
+        uri = uri.replace("\\", "\\\\");
+
+        String sql = "UPDATE flowers SET name = '"
+                + availableFlowers_flowerName.getText() + "', status = '"
+                + availableFlowers_status.getSelectionModel().getSelectedItem() + "', price = '"
+                + availableFlowers_prince.getText() + "', image = '"
+                + uri + "' WHERE flower_id = '" + availableFlowers_flowerID.getText() + "'";
+
+        connect = database.connectDb();
+
+        try {
+
+            Alert alert;
+
+            if (availableFlowers_flowerID.getText().isEmpty()
+                    || availableFlowers_flowerName.getText().isEmpty()
+                    || availableFlowers_status.getSelectionModel().getSelectedItem() == null
+                    || availableFlowers_prince.getText().isEmpty()
+                    || getData.path == null || getData.path == "") {
+
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            } else {
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to Update Flower ID: " + availableFlowers_flowerID.getText() + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(sql);
+
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+
+                    //SHOW UPDATE TABLEVIEW
+                    availableFlowersShowListData();
+
+                    // CLEAR ALL FIELDS
+                    availableFlowersClear();
+
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public void availableFlowersDelete() {
+
+        String sql = "DELETE FROM flowers WHERE flower_id = '"
+                + availableFlowers_flowerID.getText() + "'";
+
+        connect = database.connectDb();
+
+        try {
+            
+            Alert alert;
+
+            if (availableFlowers_flowerID.getText().isEmpty()
+                    || availableFlowers_flowerName.getText().isEmpty()
+                    || availableFlowers_status.getSelectionModel().getSelectedItem() == null
+                    || availableFlowers_prince.getText().isEmpty()
+                    || getData.path == null || getData.path == "") {
+
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            } else {
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to Delete Flower ID: " + availableFlowers_flowerID.getText() + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(sql);
+
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Deleted!");
+                    alert.showAndWait();
+
+                    //SHOW UPDATE TABLEVIEW
+                    availableFlowersShowListData();
+
+                    // CLEAR ALL FIELDS
+                    availableFlowersClear();
+
+                }
+
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
     public void availableFlowersClear() {
 
         availableFlowers_flowerID.setText("");
@@ -270,7 +390,6 @@ public class dashboardController implements Initializable {
         availableFlowers_imageView.setImage(null);
 
     }
-    
 
     String listStatus[] = {"Available", "Not Available"};
 
@@ -287,7 +406,6 @@ public class dashboardController implements Initializable {
         availableFlowers_status.setItems(listData);
 
     }
-
 
     public void availableFlowersInsertImage() {
 
@@ -351,6 +469,54 @@ public class dashboardController implements Initializable {
         availableFlowers_tableView.setItems(availableFlowersList);
     }
 //=================================
+
+    
+    public void availableFlowersSearch(){
+    
+        FilteredList<flowersData> filter = new FilteredList<>(availableFlowersList, e -> true);
+        
+        availableFlowers_search.textProperty().addListener((observable, oldValue, newValue) ->{
+        
+            filter.setPredicate(predicateFlowerData ->{
+                
+                if(newValue.isEmpty() || newValue == null){
+                
+                    return true;
+                }
+                
+                String searchkey = newValue.toLowerCase();
+                
+                if(predicateFlowerData.getFlowerId().toString().contains(searchkey)){
+                
+                    return true;
+                    
+                }else if(predicateFlowerData.getName().toString().contains(searchkey)){
+                
+                    return true;
+                }else if(predicateFlowerData.getStatus().contains(searchkey)){
+                
+                    return true;
+                }else if(predicateFlowerData.getPrice().toString().contains(searchkey)){
+                
+                    return true;
+                }else return false;
+                
+//                return false;
+                
+            });
+            
+        });
+        
+        SortedList<flowersData> sortList = new SortedList<>(filter);
+        
+        sortList.comparatorProperty().bind(availableFlowers_tableView.comparatorProperty());
+        
+        availableFlowers_tableView.setItems(sortList);
+        
+        
+    }
+    
+    
     public void availableFlowersSelect() {
 
         flowersData flower = availableFlowers_tableView.getSelectionModel().getSelectedItem();
@@ -363,7 +529,7 @@ public class dashboardController implements Initializable {
         availableFlowers_flowerID.setText(String.valueOf(flower.getFlowerId()));
         availableFlowers_flowerName.setText(flower.getName());
         availableFlowers_prince.setText(String.valueOf(flower.getPrice()));
-        
+
         getData.path = flower.getImage();
 
         String uri = "file:" + flower.getImage();
@@ -408,6 +574,7 @@ public class dashboardController implements Initializable {
             // TO SHOW THE UPDATE TABLEVIEW ONCE YOU CLICKED THE AVAILABLE FLOWERS BUTTON
             availableFlowersShowListData();
             availableFlowersStatus();
+            availableFlowersSearch();
 
         } else if (event.getSource() == purchase_btn) {
 
